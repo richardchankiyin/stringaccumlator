@@ -57,4 +57,10 @@ public class StringAccumulatorTest {
        String str2 = "ab1234ef";
        assertEquals(1234, TokenParser.parseInt(str2.toCharArray(),0,str2.length(),9999));
     }
+
+    @Test
+    public void testTokenParserPrimaryParseOk() {
+       String str1 = "123";
+       assertEquals(223, TokenParser.parse(100, str1.toCharArray(), 0, str1.length(), (x,y) -> {return x+y;} , 999));
+    }
 }
