@@ -80,5 +80,12 @@ public class StringAccumulatorTest {
     public void testTokenParserPrimaryIgnoreText() {
        String str1 = "12a4";
        TokenParser.parse(100, str1, 0, str1.length(), (x,y) -> {return x+y;}, 999); 
-    } 
+    }
+   
+    /* 
+    @Test
+    public void testAdd1() {
+       assertEquals(8,StringAccumulator.simpleAdd("1,3,4"));
+    }
+    */ 
 }
