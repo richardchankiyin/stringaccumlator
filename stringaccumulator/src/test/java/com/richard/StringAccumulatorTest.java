@@ -63,4 +63,22 @@ public class StringAccumulatorTest {
        String str1 = "123";
        assertEquals(223, TokenParser.parse(100, str1, 0, str1.length(), (x,y) -> {return x+y;} , 999));
     }
+
+    @Test(expected=NegativeNumberException.class)
+    public void testTokenParserPrimaryNegativeNo() {
+       String str1 = "-123";
+       TokenParser.parse(100, str1, 0, str1.length(), (x,y) -> {return x+y;}, 999);
+    }
+
+    @Test(expected=IgnoreTextException.class)
+    public void testTokenParserPrimaryIgnoreLargeNo() {
+       String str1 = "3333";
+       TokenParser.parse(100, str1, 0, str1.length(), (x,y) -> {return x+y;}, 999);
+    }
+
+    @Test(expected=IgnoreTextException.class)
+    public void testTokenParserPrimaryIgnoreText() {
+       String str1 = "12a4";
+       TokenParser.parse(100, str1, 0, str1.length(), (x,y) -> {return x+y;}, 999); 
+    } 
 }
