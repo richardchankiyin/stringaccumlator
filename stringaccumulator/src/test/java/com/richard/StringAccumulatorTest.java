@@ -37,4 +37,24 @@ public class StringAccumulatorTest {
        assertFalse(TokenParser.isNumber(str2.toCharArray(),0,str2.length()));
        assertTrue(TokenParser.isNumber(str2.toCharArray(),2,6));
     }
+
+    @Test
+    public void testTokenParserParseOk() {
+       String str1 = "1234";
+       assertEquals(1234, TokenParser.parseInt(str1.toCharArray(),0,str1.length(),9999));
+       String str2 = "ab1234ef";
+       assertEquals(1234, TokenParser.parseInt(str2.toCharArray(),2,6,9999));
+    }
+  
+    @Test(expected=NumberTooLargeException.class) 
+    public void testTokenParserParseTooLarge() {
+       String str1 = "1234";
+       TokenParser.parseInt(str1.toCharArray(),0,str1.length(),999);
+    }
+
+    @Test(expected=NotANumberException.class)
+    public void testTokenParseNotANumber() {
+       String str2 = "ab1234ef";
+       assertEquals(1234, TokenParser.parseInt(str2.toCharArray(),0,str2.length(),9999));
+    }
 }
