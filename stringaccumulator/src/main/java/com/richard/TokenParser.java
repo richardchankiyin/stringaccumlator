@@ -7,8 +7,16 @@ public class TokenParser {
         int thisno = 0;
         boolean negsignfound = false;
         negsignfound = chars[start] == '-';
+        // check negative sign found and a potential negative no
+        if (negsignfound) {
+             if (isNumber(chars, start+1, end))
+                  throw new NegativeNumberException();
+             else
+                  throw new IgnoreTextException();   
+        }
          
         //TODO to be implemented
+        // check number and it is a three digit one, if not ignore it
         return func.apply(initAmt,thisno);    
     } 
     private static boolean isDigit(char input) {
