@@ -3,10 +3,10 @@ package com.richard;
 import java.util.function.BiFunction;
 
 public class TokenParser {
-    public static int parse(int initAmt, char[] chars, int start, int end, BiFunction<Integer,Integer,Integer> func, int max) {
+    public static int parse(int initAmt, CharSequence chars, int start, int end, BiFunction<Integer,Integer,Integer> func, int max) {
         int thisno = 0;
         boolean negsignfound = false;
-        negsignfound = chars[start] == '-';
+        negsignfound = chars.charAt(start) == '-';
         // check negative sign found and a potential negative no
         if (negsignfound) {
              if (isNumber(chars, start+1, end))
@@ -39,11 +39,11 @@ public class TokenParser {
      * This method just checks whether all are digits. Negative signs
      * are not being accepted 
      */
-    public static boolean isNumber(char[] chars, int start, int end) {
+    public static boolean isNumber(CharSequence chars, int start, int end) {
        boolean result = true;
 
        for (int i = start; result && i < end; i++) {
-          result &= isDigit(chars[i]);
+          result &= isDigit(chars.charAt(i));
        }
 
        return result;
@@ -55,11 +55,11 @@ public class TokenParser {
      * If this is a number, we will parse as int and compare
      * with the max. If the no is larger than max, throw exception 
      */ 
-    static int parseInt(char[] chars, int start, int end, int max) {
+    static int parseInt(CharSequence chars, int start, int end, int max) {
        int result = 0;
        boolean isDigit = true;
        for (int i = start; isDigit && i < end; i++) {
-          char c = chars[i];
+          char c = chars.charAt(i);
           isDigit &= isDigit(c);
           int power = end - 1 - i;
           result += Math.pow(10, power) * char2Int(c);
