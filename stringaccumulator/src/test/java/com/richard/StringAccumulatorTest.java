@@ -85,46 +85,51 @@ public class StringAccumulatorTest {
      
     @Test
     public void testAddDefaultDelimiters() {
+       assertEquals(0,StringAccumulator.simpleAdd(""));
+       assertEquals(0,StringAccumulator.performantAdd(""));
        assertEquals(8,StringAccumulator.simpleAdd("1,3,4"));
-       //TODO add performantAdd
+       assertEquals(8,StringAccumulator.performantAdd("1,3,4"));
        assertEquals(10,StringAccumulator.simpleAdd("1,4\n5"));
-       //TODO add performantAdd
+       assertEquals(10,StringAccumulator.performantAdd("1,4\n5"));
        assertEquals(8,StringAccumulator.simpleAdd("1,1000,3,4"));
-       //TODO add performantAdd
        StringBuilder strB = new StringBuilder();
-       for (int i = 0; i < 10000; i++) {
-            if (i == 9999) strB.append("1");
+       for (int i = 0; i < 100000; i++) {
+            if (i == 99999) strB.append("1");
             else strB.append("1,");
        }
        long beforesimpleadd = System.currentTimeMillis();
-       assertEquals(10000,StringAccumulator.simpleAdd(strB.toString()));
+       assertEquals(100000,StringAccumulator.simpleAdd(strB.toString()));
        long aftersimpleadd = System.currentTimeMillis();
-       System.err.printf("Simple Add 10000 Default Delimiter before: %d after: %d Time in millis: %d\n", beforesimpleadd, aftersimpleadd, aftersimpleadd - beforesimpleadd);
+       System.err.printf("Simple Add 100000 Default Delimiter before: %d after: %d Time in millis: %d\n", beforesimpleadd, aftersimpleadd, aftersimpleadd - beforesimpleadd);
+       long beforeperformantadd = System.currentTimeMillis();
+       assertEquals(100000,StringAccumulator.performantAdd(strB.toString())); 
+       long afterperformantadd = System.currentTimeMillis();
+       System.err.printf("Performant Add 100000 Default Delimiter before: %d after: %d Time in millis: %d\n", beforeperformantadd, afterperformantadd, afterperformantadd - beforeperformantadd);
     }
     
     @Test
     public void testAddNonDefaultDelimiters() {
        assertEquals(13,StringAccumulator.simpleAdd("//a\n1a3\n4a5"));
-       //TODO add performantAdd
+       assertEquals(13,StringAccumulator.performantAdd("//a\n1a3\n4a5"));
        assertEquals(15,StringAccumulator.simpleAdd("//a|--|&&&\n1a2--3\n4&&&5"));
-       //TODO add performantAdd
+       assertEquals(15,StringAccumulator.performantAdd("//a|--|&&&\n1a2--3\n4&&&5"));
        assertEquals(13,StringAccumulator.simpleAdd("//a\n1a3\n1000\n4a5"));
-       //TODO add performantAdd
+       assertEquals(13,StringAccumulator.performantAdd("//a\n1a3\n1000\n4a5"));
 
-       // with failure, temporarily commented out
        StringBuilder strB = new StringBuilder();
        strB.append("//---\n");
-       for (int i = 0; i < 9999; i++) {
+       for (int i = 0; i < 99999; i++) {
           if (i == 0) strB.append("1");
           strB.append("---1");
        }
-       //System.out.printf("--------\n%s\n------------\n",strB.toString());
        long beforesimpleadd = System.currentTimeMillis();
-       assertEquals(10000,StringAccumulator.simpleAdd(strB.toString()));
+       assertEquals(100000,StringAccumulator.simpleAdd(strB.toString()));
        long aftersimpleadd = System.currentTimeMillis();
-       System.err.printf("Simple Add 10000 Delimiter --- before:%d after:%d Time in Millis:%d\n", beforesimpleadd, aftersimpleadd, aftersimpleadd - beforesimpleadd);
-       //TODO add performantAdd 
-        
+       System.err.printf("Simple Add 100000 Delimiter --- before:%d after:%d Time in Millis:%d\n", beforesimpleadd, aftersimpleadd, aftersimpleadd - beforesimpleadd);
+       long beforeperformantadd = System.currentTimeMillis();
+       assertEquals(100000,StringAccumulator.performantAdd(strB.toString())); 
+       long afterperformantadd = System.currentTimeMillis();
+       System.err.printf("Performant Add 100000 Delimiter --- before:%d after:%d Time in Millis:%d\n", beforeperformantadd, afterperformantadd, afterperformantadd - beforeperformantadd);   
     }
 
     @Test
@@ -135,25 +140,45 @@ public class StringAccumulatorTest {
            fail("should be with exception");
        } catch (Exception e) {
            String errMsg = e.getMessage();
-           System.err.printf("%s gives err msg: %s\n",str1,errMsg);
+           System.err.printf("SimpleAdd: %s gives err msg: %s\n",str1,errMsg);
            assertTrue(e instanceof NegativeNumberException);
            assertTrue(errMsg.contains("-2"));
            assertTrue(errMsg.contains("-4"));
        }
        //TODO add performantAdd 
-
+       try {
+           StringAccumulator.performantAdd(str1);
+           fail("should be with exception");
+       } catch (Exception e) {
+           String errMsg = e.getMessage();
+           System.err.printf("PerformantAdd: %s gives err msg: %s\n",str1,errMsg);
+           assertTrue(e instanceof NegativeNumberException);
+           assertTrue(errMsg.contains("-2"));
+           assertTrue(errMsg.contains("-4"));
+       }
+       
        String str2 = "1,1000,-2,-3,2000,4";
        try {
            StringAccumulator.simpleAdd(str2);
            fail("should be with exception");
        } catch (Exception e) {
            String errMsg = e.getMessage();
-           System.err.printf("%s gives err msg: %s\n",str2,errMsg);
+           System.err.printf("SimpleAdd: %s gives err msg: %s\n",str2,errMsg);
            assertTrue(e instanceof NegativeNumberException);
            assertTrue(errMsg.contains("-2"));
            assertTrue(errMsg.contains("-3"));
        }
        //TODO add performantAdd
-       
+       try {
+           StringAccumulator.performantAdd(str2);
+           fail("should be with exception");
+       } catch (Exception e) {
+           String errMsg = e.getMessage();
+           System.err.printf("PerformantAdd: %s gives err msg: %s\n",str2,errMsg);
+           assertTrue(e instanceof NegativeNumberException);
+           assertTrue(errMsg.contains("-2"));
+           assertTrue(errMsg.contains("-3"));
+       }
+ 
     }
 }
