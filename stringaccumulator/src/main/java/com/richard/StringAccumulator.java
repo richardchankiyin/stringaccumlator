@@ -29,6 +29,12 @@ public class StringAccumulator
 
     static boolean isEmpty(String inputStr) { return inputStr == null || inputStr.length() == 0; }
 
+    public static int add(String inputStr) { return add(inputStr, true); } 
+
+    public static int add(String inputStr, boolean isPerformantAdd) {
+        return isPerformantAdd ? performantAdd(inputStr) : simpleAdd(inputStr);
+    }
+
     /**
      * This method will make use of regex to split the items. When
      * a new item is being determined, summation will be done immediately
