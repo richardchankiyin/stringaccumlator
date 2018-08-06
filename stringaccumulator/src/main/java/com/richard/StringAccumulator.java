@@ -25,6 +25,22 @@ public class StringAccumulator
         return String.format("negatives now allowed. %s", strList);
     }
 
+    /**
+     * This method will make use of regex to split the items. When
+     * a new item is being determined, summation will be done immediately
+     * which does not involve another transverse after splitting
+     */
+    public static int performantAdd(String inputStr) {
+        //TODO to be implemented
+        return -1;
+    }
+
+    /**
+     * This method is to use regex to split the string to retrieve
+     * the items. Then traverse through the item one by one and perform
+     * summation. Performance will degraded if the input string getting
+     * very long
+     */
     public static int simpleAdd(String inputStr) {
         DelimiterResult delimiterResult = getDelimiter(inputStr);
         int startPos = delimiterResult.getStringContentPos();
@@ -46,9 +62,7 @@ public class StringAccumulator
                 isExceptionThrown = true;
                 negativeNumberStrings.add(item); 
            }
-
         } 
-
         if (isExceptionThrown) {
             throw new NegativeNumberException(generateNegativeNumbersMsg(negativeNumberStrings));
         } 
