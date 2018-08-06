@@ -89,6 +89,8 @@ public class StringAccumulatorTest {
        //TODO add performantAdd
        assertEquals(10,StringAccumulator.simpleAdd("1,4\n5"));
        //TODO add performantAdd
+       assertEquals(8,StringAccumulator.simpleAdd("1,1000,3,4"));
+       //TODO add performantAdd
        StringBuilder strB = new StringBuilder();
        for (int i = 0; i < 10000; i++) {
             if (i == 9999) strB.append("1");
@@ -105,6 +107,8 @@ public class StringAccumulatorTest {
        assertEquals(13,StringAccumulator.simpleAdd("//a\n1a3\n4a5"));
        //TODO add performantAdd
        assertEquals(15,StringAccumulator.simpleAdd("//a|--|&&&\n1a2--3\n4&&&5"));
+       //TODO add performantAdd
+       assertEquals(13,StringAccumulator.simpleAdd("//a\n1a3\n1000\n4a5"));
        //TODO add performantAdd
 
        // with failure, temporarily commented out
@@ -137,5 +141,19 @@ public class StringAccumulatorTest {
            assertTrue(errMsg.contains("-4"));
        }
        //TODO add performantAdd 
+
+       String str2 = "1,1000,-2,-3,2000,4";
+       try {
+           StringAccumulator.simpleAdd(str2);
+           fail("should be with exception");
+       } catch (Exception e) {
+           String errMsg = e.getMessage();
+           System.err.printf("%s gives err msg: %s\n",str2,errMsg);
+           assertTrue(e instanceof NegativeNumberException);
+           assertTrue(errMsg.contains("-2"));
+           assertTrue(errMsg.contains("-3"));
+       }
+       //TODO add performantAdd
+       
     }
 }
