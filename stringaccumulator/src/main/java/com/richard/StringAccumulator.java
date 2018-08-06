@@ -35,8 +35,8 @@ public class StringAccumulator
         for (String item: items) {
            try {
                 int interim = TokenParser.parse(result, item, 0, item.length(), (x,y)->{return x+y;},MAX_VALUE);
-                System.err.printf("result:%d interim: %d\n", result, interim);
-                result += interim;
+                //System.err.printf("item: %s result:%d interim: %d\n", item, result, interim);
+                result = interim;
            } catch (IgnoreTextException ite) {
            } catch (NegativeNumberException nne) {
                 isExceptionThrown = true;

@@ -82,10 +82,22 @@ public class StringAccumulatorTest {
        TokenParser.parse(100, str1, 0, str1.length(), (x,y) -> {return x+y;}, 999); 
     }
    
-    /* 
+     
     @Test
-    public void testAdd1() {
+    public void testAddDefaultDelimiters() {
        assertEquals(8,StringAccumulator.simpleAdd("1,3,4"));
+       //TODO add performantAdd
+       assertEquals(10,StringAccumulator.simpleAdd("1,4\n5"));
+       //TODO add performantAdd
+       StringBuilder strB = new StringBuilder();
+       for (int i = 0; i < 10000; i++) {
+            if (i == 9999) strB.append("1");
+            else strB.append("1,");
+       }
+       long beforesimpleadd = System.currentTimeMillis();
+       assertEquals(10000,StringAccumulator.simpleAdd(strB.toString()));
+       long aftersimpleadd = System.currentTimeMillis();
+       System.err.printf("Simple Add 10000 before: %d after: %d Time in millis: %d\n", beforesimpleadd, aftersimpleadd, aftersimpleadd - beforesimpleadd);
     }
-    */ 
+     
 }
