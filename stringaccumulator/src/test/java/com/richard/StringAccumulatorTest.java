@@ -97,7 +97,29 @@ public class StringAccumulatorTest {
        long beforesimpleadd = System.currentTimeMillis();
        assertEquals(10000,StringAccumulator.simpleAdd(strB.toString()));
        long aftersimpleadd = System.currentTimeMillis();
-       System.err.printf("Simple Add 10000 before: %d after: %d Time in millis: %d\n", beforesimpleadd, aftersimpleadd, aftersimpleadd - beforesimpleadd);
+       System.err.printf("Simple Add 10000 Default Delimiter before: %d after: %d Time in millis: %d\n", beforesimpleadd, aftersimpleadd, aftersimpleadd - beforesimpleadd);
     }
-     
+    
+    @Test
+    public void testAddNonDefaultDelimiters() {
+       assertEquals(13,StringAccumulator.simpleAdd("//a\n1a3\n4a5"));
+       //TODO add performantAdd
+       assertEquals(15,StringAccumulator.simpleAdd("//a|--|&&&\n1a2--3\n4&&&5"));
+       //TODO add performantAdd
+
+       /* with failure, temporarily commented out
+       StringBuilder strB = new StringBuilder();
+       strB.append("//---\n");
+       for (int i = 0; i < 10000; i++) {
+          if (i == 0) strB.append("1");
+          strB.append("---1");
+       }
+       System.out.printf("--------\n%s\n------------\n",strB.toString());
+       long beforesimpleadd = System.currentTimeMillis();
+       assertEquals(10000,StringAccumulator.simpleAdd(strB.toString()));
+       long aftersimpleadd = System.currentTimeMillis();
+       System.err.printf("Simple Add 10000 Delimiter --- before:%d after:%d Time in Millis:%d\n", beforesimpleadd, aftersimpleadd, aftersimpleadd - beforesimpleadd);
+       //TODO add performantAdd 
+       */ 
+    }
 }

@@ -28,7 +28,8 @@ public class StringAccumulator
         String delimiterStr = delimiterResult.getDelimiter();
         delimiterStr += "|\n";
         String content = inputStr.substring(startPos);
-        String[] items = content.split(delimiterStr); 
+        String[] items = content.split(delimiterStr);
+        //System.err.printf("no of items: %d delimiter: %s\n", items.length, delimiterStr); 
         int result = 0;
         boolean isExceptionThrown = false;
         List<String> negativeNumberStrings = new LinkedList<String>();
