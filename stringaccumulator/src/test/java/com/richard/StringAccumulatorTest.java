@@ -145,7 +145,6 @@ public class StringAccumulatorTest {
            assertTrue(errMsg.contains("-2"));
            assertTrue(errMsg.contains("-4"));
        }
-       //TODO add performantAdd 
        try {
            StringAccumulator.performantAdd(str1);
            fail("should be with exception");
@@ -168,7 +167,6 @@ public class StringAccumulatorTest {
            assertTrue(errMsg.contains("-2"));
            assertTrue(errMsg.contains("-3"));
        }
-       //TODO add performantAdd
        try {
            StringAccumulator.performantAdd(str2);
            fail("should be with exception");

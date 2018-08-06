@@ -20,7 +20,10 @@ public class StringAccumulator
 
     public static void main( String[] args )
     {
-        System.out.println( "To be implemented!" );
+        String input = "";
+        if (args.length > 0) input = args[0];
+        int result = add(input);
+        System.out.println(result);
     }
 
     static String generateNegativeNumbersMsg(List<String> strList) {
