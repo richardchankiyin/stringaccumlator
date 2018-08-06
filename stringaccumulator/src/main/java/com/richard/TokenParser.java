@@ -74,7 +74,10 @@ public class TokenParser {
     }
 }
 
-class NegativeNumberException extends RuntimeException {}
+class NegativeNumberException extends RuntimeException {
+   public NegativeNumberException() {}
+   public NegativeNumberException(String msg) { super(msg); }
+}
 class IgnoreTextException extends RuntimeException {
    public IgnoreTextException() {};
    public IgnoreTextException(Throwable t) { super(t); }

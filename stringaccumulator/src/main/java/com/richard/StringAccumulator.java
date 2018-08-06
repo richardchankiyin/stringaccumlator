@@ -21,7 +21,10 @@ public class StringAccumulator
         System.out.println( "To be implemented!" );
     }
 
-    //TODO with bugs 
+    static String generateNegativeNumbersMsg(List<String> strList) {
+        return String.format("negatives now allowed. %s", strList);
+    }
+
     public static int simpleAdd(String inputStr) {
         DelimiterResult delimiterResult = getDelimiter(inputStr);
         int startPos = delimiterResult.getStringContentPos();
@@ -47,7 +50,7 @@ public class StringAccumulator
         } 
 
         if (isExceptionThrown) {
-            throw new RuntimeException("Negative Nos:" + negativeNumberStrings.toString());
+            throw new NegativeNumberException(generateNegativeNumbersMsg(negativeNumberStrings));
         } 
 
         return result; 

@@ -3,7 +3,7 @@ package com.richard;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -121,5 +121,21 @@ public class StringAccumulatorTest {
        System.err.printf("Simple Add 10000 Delimiter --- before:%d after:%d Time in Millis:%d\n", beforesimpleadd, aftersimpleadd, aftersimpleadd - beforesimpleadd);
        //TODO add performantAdd 
         
+    }
+
+    @Test
+    public void testAddNegativeNos() {
+       String str1 = "1,-2,3,-4";
+       try {
+           StringAccumulator.simpleAdd(str1);
+           fail("should be with exception");
+       } catch (Exception e) {
+           String errMsg = e.getMessage();
+           System.err.printf("%s gives err msg: %s\n",str1,errMsg);
+           assertTrue(e instanceof NegativeNumberException);
+           assertTrue(errMsg.contains("-2"));
+           assertTrue(errMsg.contains("-4"));
+       }
+       //TODO add performantAdd 
     }
 }
