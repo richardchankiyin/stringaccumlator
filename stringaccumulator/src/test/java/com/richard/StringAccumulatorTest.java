@@ -107,19 +107,19 @@ public class StringAccumulatorTest {
        assertEquals(15,StringAccumulator.simpleAdd("//a|--|&&&\n1a2--3\n4&&&5"));
        //TODO add performantAdd
 
-       /* with failure, temporarily commented out
+       // with failure, temporarily commented out
        StringBuilder strB = new StringBuilder();
        strB.append("//---\n");
-       for (int i = 0; i < 10000; i++) {
+       for (int i = 0; i < 9999; i++) {
           if (i == 0) strB.append("1");
           strB.append("---1");
        }
-       System.out.printf("--------\n%s\n------------\n",strB.toString());
+       //System.out.printf("--------\n%s\n------------\n",strB.toString());
        long beforesimpleadd = System.currentTimeMillis();
        assertEquals(10000,StringAccumulator.simpleAdd(strB.toString()));
        long aftersimpleadd = System.currentTimeMillis();
        System.err.printf("Simple Add 10000 Delimiter --- before:%d after:%d Time in Millis:%d\n", beforesimpleadd, aftersimpleadd, aftersimpleadd - beforesimpleadd);
        //TODO add performantAdd 
-       */ 
+        
     }
 }
